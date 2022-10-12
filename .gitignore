@@ -1,0 +1,7 @@
+/__pycache__/
+conf.ini
+my_account.session
+/.idea/
+/Scripts/
+/Lib/
+pyvenv.cfg
