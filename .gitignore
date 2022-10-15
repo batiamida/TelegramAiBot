@@ -1,6 +1,7 @@
 /__pycache__/
 conf.ini
 my_account.session
+my_account.session-journal
 /.idea/
 /Scripts/
 /Lib/

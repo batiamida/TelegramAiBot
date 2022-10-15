@@ -21,10 +21,12 @@ async def main(lines, conn, cur):
             ch, l = channel.strip().split()
             async for msg in app.get_chat_history(ch, limit=int(l)):
                 msg = my_filter(msg.text)
-                if msg is not None:
-                    cur.execute("INSERT INTO dataset(parsed_text, propaganda) VALUES"
-                                f"('{msg}', NULL)")
-
+                try:
+                    if msg is not None:
+                        cur.execute("INSERT INTO dataset(parsed_text, propaganda) VALUES"
+                                    f"('{msg}', NULL)")
+                except:
+                    continue
     conn.close()
 
 
