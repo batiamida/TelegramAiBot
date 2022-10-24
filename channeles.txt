@@ -1,3 +1,9 @@
+informnapalm 100
+stand_up_battle_chat 300
+voenkorKotenok 500
+stud_matan 200
+strongUk 400
+privatnamemarnya 300
 rosianews 200 rus
 montyan 400 rus
 alphacentaurifromhell 400 rus

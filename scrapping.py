@@ -20,6 +20,7 @@ async def main(lines, conn, cur):
         for channel in lines:
             ch, l, code = channel.strip().split()
             async for msg in app.get_chat_history(ch, limit=int(l)):
+                msg = my_filter(msg.text)
                 try:
                     msg = my_filter(msg.text)
                     if msg is not None:
