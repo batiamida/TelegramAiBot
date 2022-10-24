@@ -21,11 +21,12 @@ async def get_stat(client, message):
     if message.chat.username in ['Always_chillingUP', 'Irynchuk', 'sonja_su', 'nightraypng']:
         conn = pg.connect(**conf['DATABASE'])
         cur = conn.cursor()
-        cur.execute("SELECT count(*) AS neg_count FROM dataset WHERE propaganda=FALSE")
+        cur.execute("SELECT count(*) AS neg_count FROM dataset_u_new WHERE propaganda=FALSE")
         neg_counter = cur.fetchone()[0]
-        cur.execute("SELECT count(*) AS pos_count FROM dataset WHERE propaganda=TRUE")
+        cur.execute("SELECT count(*) AS pos_count FROM dataset_u_new WHERE propaganda=TRUE")
         pos_counter = cur.fetchone()[0]
-        cur.execute("SELECT count(*) FROM dataset WHERE propaganda IS NULL")
+        cur.execute("SELECT count(*) FROM dataset_u_new WHERE propaganda IS NULL")
+
         unclf_counter = cur.fetchone()[0]
         cur.close()
         div = neg_counter+pos_counter
@@ -48,22 +49,24 @@ async def function(client, message):
         # print(message.text)
         if message.text == "Let's go!":
             await message.reply('start...')
-            cur.execute('SELECT * FROM dataset WHERE propaganda IS NULL LIMIT 1')
+
+            cur.execute('SELECT * FROM dataset_u_new WHERE propaganda IS NULL LIMIT 1')
             fetch_ls = cur.fetchall()
             await message.reply(fetch_ls[0][1], reply_markup=ReplyKeyboardMarkup([button_ls]))
 
         elif message.text in button_ls:
-            cur.execute('SELECT * FROM dataset WHERE propaganda IS NULL LIMIT 1')
+
+            cur.execute('SELECT * FROM dataset_u_new WHERE propaganda IS NULL LIMIT 1')
             fetch_ls = cur.fetchall()
             if message.text == "Russian":
-                cur.execute(f"UPDATE dataset SET propaganda=TRUE WHERE id={fetch_ls[0][0]}")
+                cur.execute(f"UPDATE dataset_u_new SET propaganda=TRUE WHERE id={fetch_ls[0][0]}")
             elif message.text == 'Ukrainian':
-                cur.execute(f"UPDATE dataset SET propaganda=FALSE WHERE id={fetch_ls[0][0]}")
+                cur.execute(f"UPDATE dataset_u_new SET propaganda=FALSE WHERE id={fetch_ls[0][0]}")
             else:
-                cur.execute(f"DELETE FROM dataset WHERE id={fetch_ls[0][0]}")
+                cur.execute(f"DELETE FROM dataset_u_new WHERE id={fetch_ls[0][0]}")
 
             conn.commit()
-            cur.execute('SELECT * FROM dataset WHERE propaganda IS NULL LIMIT 1')
+            cur.execute('SELECT * FROM dataset_u_new WHERE propaganda IS NULL LIMIT 1')
             fetch_ls = cur.fetchall()
             cur.close()
             await message.reply(fetch_ls[0][1])

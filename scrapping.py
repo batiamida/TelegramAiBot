@@ -18,13 +18,14 @@ async def main(lines, conn, cur):
     conn.autocommit = True
     async with app:
         for channel in lines:
-            ch, l = channel.strip().split()
+            ch, l, code = channel.strip().split()
             async for msg in app.get_chat_history(ch, limit=int(l)):
                 msg = my_filter(msg.text)
                 try:
+                    msg = my_filter(msg.text)
                     if msg is not None:
-                        cur.execute("INSERT INTO dataset(parsed_text, propaganda) VALUES"
-                                    f"('{msg}', NULL)")
+                        cur.execute("INSERT INTO dataset_u_new(parsed_text, propaganda, language_code) VALUES"
+                                    f"('{msg}', NULL, '{code}')")
                 except:
                     continue
     conn.close()
