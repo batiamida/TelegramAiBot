@@ -21,10 +21,10 @@ async def get_stat(client, message):
     if message.chat.username in ['Always_chillingUP', 'Irynchuk', 'sonja_su', 'nightraypng']:
         conn = pg.connect(**conf['DATABASE'])
         cur = conn.cursor()
-        cur.execute("SELECT count(*) AS neg_count FROM dataset_u_new WHERE propaganda=FALSE")
-        neg_counter = cur.fetchone()[0]
-        cur.execute("SELECT count(*) AS pos_count FROM dataset_u_new WHERE propaganda=TRUE")
+        cur.execute("SELECT count(*) AS pos_counter FROM dataset_u_new WHERE propaganda=FALSE")
         pos_counter = cur.fetchone()[0]
+        cur.execute("SELECT count(*) AS neg_counter FROM dataset_u_new WHERE propaganda=TRUE")
+        neg_counter = cur.fetchone()[0]
         cur.execute("SELECT count(*) FROM dataset_u_new WHERE propaganda IS NULL")
 
         unclf_counter = cur.fetchone()[0]
