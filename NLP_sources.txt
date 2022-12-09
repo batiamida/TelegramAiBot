@@ -1,0 +1,2 @@
+https://www.kaggle.com/code/rtatman/analyzing-multilingual-data
+https://spacy.io/models/uk
