@@ -26,6 +26,7 @@ async def get_stat(client, message):
         cur.execute("SELECT count(*) AS neg_counter FROM dataset_u_new WHERE propaganda=TRUE")
         neg_counter = cur.fetchone()[0]
         cur.execute("SELECT count(*) FROM dataset_u_new WHERE propaganda IS NULL")
+
         unclf_counter = cur.fetchone()[0]
         cur.close()
         div = neg_counter+pos_counter
@@ -48,11 +49,13 @@ async def function(client, message):
         # print(message.text)
         if message.text == "Let's go!":
             await message.reply('start...')
+
             cur.execute('SELECT * FROM dataset_u_new WHERE propaganda IS NULL LIMIT 1')
             fetch_ls = cur.fetchall()
             await message.reply(fetch_ls[0][1], reply_markup=ReplyKeyboardMarkup([button_ls]))
 
         elif message.text in button_ls:
+
             cur.execute('SELECT * FROM dataset_u_new WHERE propaganda IS NULL LIMIT 1')
             fetch_ls = cur.fetchall()
             if message.text == "Russian":
